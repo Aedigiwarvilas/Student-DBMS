@@ -4,46 +4,36 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 import CloseButton from "react-bootstrap/esm/CloseButton";
+import { useFormik } from "formik";
+import { FormValidation } from "../validations/FormValidations";
 
 export default function StudentAddForm() {
   const [modalShow, setModalShow] = useState(false);
-  const [rollNo, setRollNo] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [branch, setBranch] = useState("");
-  const [dob, setDob] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-
-  const handleReset = () => {
-    setRollNo("");
-    setFirstName("");
-    setLastName("");
-    setBranch("");
-    setDob("");
-    setEmail("");
-    setPhone("");
+  const initialFormValues = {
+    rollNo: "",
+    firstName: "",
+    lastName: "",
+    branch: "",
+    dob: "",
+    email: "",
+    phone: "",
   };
+
+  const { values, errors, touched, handleChange, handleReset, handleSubmit } =
+    useFormik({
+      initialValues: initialFormValues,
+      validationSchema: FormValidation,
+      onSubmit: (values) => {
+        axios
+          .post("http://localhost:5000/add", values)
+          .then((res) => console.log(res.data))
+          .catch((err) => console.log(err));
+        handleClose();
+      },
+    });
 
   const handleClose = () => {
     setModalShow(false);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post("http://localhost:5000/add", {
-        rollNo,
-        firstName,
-        lastName,
-        branch,
-        dob,
-        email,
-        phone,
-      })
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
-    handleClose();
   };
 
   return (
@@ -74,78 +64,91 @@ export default function StudentAddForm() {
               <Form.Label>RollNo</Form.Label>
               <Form.Control
                 type="text"
-                value={rollNo}
-                name={rollNo}
-                onChange={(evt) => {
-                  setRollNo(evt.target.value);
-                }}
+                value={values.rollNo}
+                name="rollNo"
+                onChange={handleChange}
               />
+              {errors.rollNo && touched.rollNo ? (
+                <Form.Text className="text-danger">{errors.rollNo}</Form.Text>
+              ) : null}
             </Form.Group>
+
             <Form.Group className="mb-3">
               <Form.Label>First Name</Form.Label>
               <Form.Control
                 type="text"
-                value={firstName}
-                name={firstName}
-                onChange={(evt) => {
-                  setFirstName(evt.target.value);
-                }}
+                value={values.firstName}
+                name="firstName"
+                onChange={handleChange}
               />
+              {errors.firstName && touched.firstName ? (
+                <Form.Text className="text-danger">
+                  {errors.firstName}
+                </Form.Text>
+              ) : null}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Last Name</Form.Label>
               <Form.Control
                 type="text"
-                value={lastName}
-                name={lastName}
-                onChange={(evt) => {
-                  setLastName(evt.target.value);
-                }}
+                value={values.lastName}
+                name="lastName"
+                onChange={handleChange}
               />
+              {errors.lastName && touched.lastName ? (
+                <Form.Text className="text-danger">{errors.lastName}</Form.Text>
+              ) : null}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Branch</Form.Label>
               <Form.Control
                 type="text"
-                value={branch}
-                name={branch}
-                onChange={(evt) => {
-                  setBranch(evt.target.value);
-                }}
+                value={values.branch}
+                name="branch"
+                onChange={handleChange}
               />
+              {errors.branch && touched.branch ? (
+                <Form.Text className="text-danger">{errors.branch}</Form.Text>
+              ) : null}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>DOB</Form.Label>
               <Form.Control
                 type="text"
-                value={dob}
-                name={dob}
-                onChange={(evt) => {
-                  setDob(evt.target.value);
-                }}
+                value={values.dob}
+                name="dob"
+                onChange={handleChange}
+                placeholder="DD-MM-YYYY"
               />
+              {errors.dob && touched.dob ? (
+                <Form.Text className="text-danger">{errors.dob}</Form.Text>
+              ) : null}
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="text"
-                value={email}
-                name={email}
-                onChange={(evt) => {
-                  setEmail(evt.target.value);
-                }}
+                value={values.email}
+                name="email"
+                onChange={handleChange}
+                placeholder="test@gmail.com"
               />
+              {errors.email && touched.email ? (
+                <Form.Text className="text-danger">{errors.email}</Form.Text>
+              ) : null}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Phone</Form.Label>
               <Form.Control
                 type="text"
-                value={phone}
-                name={phone}
-                onChange={(evt) => {
-                  setPhone(evt.target.value);
-                }}
+                value={values.phone}
+                name="phone"
+                onChange={handleChange}
+                placeholder="9999999999"
               />
+              {errors.phone && touched.phone ? (
+                <Form.Text className="text-danger">{errors.phone}</Form.Text>
+              ) : null}
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
