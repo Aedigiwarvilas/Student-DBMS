@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
+import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
 import StudentTableRow from "./StudentTableRow";
@@ -13,26 +12,28 @@ export default function Students() {
     });
   };
 
-  axios
-    .get("http://localhost:5000")
-    .then((res) => {
-      setData(res.data);
-    })
-    .catch((err) => console.log(err));
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/")
+      .then((res) => {
+        if (data !== res.data) {
+          setData(res.data);
+          console.log(data);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
-    <Table striped bordered hover>
-      <thead>
+    <Table striped bordered>
+      <thead className="bg-dark text-white text-center">
         <tr>
-          <th>RollNo</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Branch</th>
-          <th>DOB</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th></th>
-          <th></th>
+          <th className="p-3">First Name</th>
+          <th className="p-3">Last Name</th>
+          <th className="p-3">DOB</th>
+          <th className="p-3">Email</th>
+          <th className="p-3">Phone</th>
+          <th className="p-3">Actions</th>
         </tr>
       </thead>
       <tbody>{DataTable()}</tbody>

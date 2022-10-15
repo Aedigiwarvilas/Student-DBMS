@@ -10,10 +10,8 @@ import { FormValidation } from "../validations/FormValidations";
 export default function StudentEditForm(props) {
   const [modalShow, setModalShow] = useState(false);
   const initialFormValues = {
-    rollNo: props.obj.RollNo,
     firstName: props.obj.FirstName,
     lastName: props.obj.LastName,
-    branch: props.obj.Branch,
     dob: props.obj.DOB,
     email: props.obj.Email,
     phone: props.obj.Phone,
@@ -36,10 +34,8 @@ export default function StudentEditForm(props) {
   };
 
   const handleReset = () => {
-    values.rollNo = initialFormValues.rollNo;
     values.firstName = initialFormValues.firstName;
     values.lastName = initialFormValues.lastName;
-    values.branch = initialFormValues.branch;
     values.dob = initialFormValues.dob;
     values.email = initialFormValues.email;
     values.phone = initialFormValues.phone;
@@ -53,6 +49,7 @@ export default function StudentEditForm(props) {
           handleReset();
           setModalShow(true);
         }}
+        className="ms-3"
       >
         Edit
       </Button>
@@ -69,18 +66,6 @@ export default function StudentEditForm(props) {
         </Modal.Header>
         <Form className="m-1" onSubmit={handleSubmit}>
           <Modal.Body>
-            <Form.Group className="mb-3">
-              <Form.Label>RollNo</Form.Label>
-              <Form.Control
-                type="text"
-                value={values.rollNo}
-                name="rollNo"
-                onChange={handleChange}
-              />
-              {errors.rollNo && touched.rollNo ? (
-                <Form.Text className="text-danger">{errors.rollNo}</Form.Text>
-              ) : null}
-            </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>First Name</Form.Label>
               <Form.Control
@@ -105,18 +90,6 @@ export default function StudentEditForm(props) {
               />
               {errors.lastName && touched.lastName ? (
                 <Form.Text className="text-danger">{errors.lastName}</Form.Text>
-              ) : null}
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Branch</Form.Label>
-              <Form.Control
-                type="text"
-                value={values.branch}
-                name="branch"
-                onChange={handleChange}
-              />
-              {errors.branch && touched.branch ? (
-                <Form.Text className="text-danger">{errors.branch}</Form.Text>
               ) : null}
             </Form.Group>
             <Form.Group className="mb-3">

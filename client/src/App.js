@@ -1,4 +1,3 @@
-import "./App.css";
 import Header from "./components/Header";
 import Students from "./components/Students";
 import StudentAddForm from "./components/StudentAddForm";
@@ -13,8 +12,8 @@ function App() {
         <Row>
           <Header />
         </Row>
-        <Row className="m-4 p-4">
-          <Col sm={10}>
+        <Row className="m-4 p-4 justify-content-md-center">
+          <Col sm={8}>
             <h4>
               Welcome to the Student Portal.One portal to view All Existing
               Students , Adding New Students , Updating Existing Students and
@@ -25,8 +24,8 @@ function App() {
             <StudentAddForm />
           </Col>
         </Row>
-        <Row className="">
-          <Col>
+        <Row className="justify-content-md-center">
+          <Col sm={10}>
             <Students />
           </Col>
         </Row>

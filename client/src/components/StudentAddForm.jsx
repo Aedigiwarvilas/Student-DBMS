@@ -10,10 +10,8 @@ import { FormValidation } from "../validations/FormValidations";
 export default function StudentAddForm() {
   const [modalShow, setModalShow] = useState(false);
   const initialFormValues = {
-    rollNo: "",
     firstName: "",
     lastName: "",
-    branch: "",
     dob: "",
     email: "",
     phone: "",
@@ -61,19 +59,6 @@ export default function StudentAddForm() {
         <Form className="m-1" onSubmit={handleSubmit}>
           <Modal.Body>
             <Form.Group className="mb-3">
-              <Form.Label>RollNo</Form.Label>
-              <Form.Control
-                type="text"
-                value={values.rollNo}
-                name="rollNo"
-                onChange={handleChange}
-              />
-              {errors.rollNo && touched.rollNo ? (
-                <Form.Text className="text-danger">{errors.rollNo}</Form.Text>
-              ) : null}
-            </Form.Group>
-
-            <Form.Group className="mb-3">
               <Form.Label>First Name</Form.Label>
               <Form.Control
                 type="text"
@@ -97,18 +82,6 @@ export default function StudentAddForm() {
               />
               {errors.lastName && touched.lastName ? (
                 <Form.Text className="text-danger">{errors.lastName}</Form.Text>
-              ) : null}
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Branch</Form.Label>
-              <Form.Control
-                type="text"
-                value={values.branch}
-                name="branch"
-                onChange={handleChange}
-              />
-              {errors.branch && touched.branch ? (
-                <Form.Text className="text-danger">{errors.branch}</Form.Text>
               ) : null}
             </Form.Group>
             <Form.Group className="mb-3">

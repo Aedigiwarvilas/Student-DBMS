@@ -6,8 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 
 const StudentTableRow = (props) => {
-  const { RollNo, FirstName, LastName, Branch, DOB, Email, Phone, _id } =
-    props.obj;
+  const { FirstName, LastName, DOB, Email, Phone, _id } = props.obj;
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -23,19 +22,15 @@ const StudentTableRow = (props) => {
 
   return (
     <>
-      <tr>
-        <td>{RollNo}</td>
+      <tr className="text-center">
         <td>{FirstName}</td>
         <td>{LastName}</td>
-        <td>{Branch}</td>
         <td>{DOB}</td>
         <td>{Email}</td>
         <td>{Phone}</td>
         <td>
           <StudentEditForm obj={props.obj} />
-        </td>
-        <td>
-          <Button variant="danger" onClick={handleModal}>
+          <Button variant="danger" onClick={handleModal} className="ms-4">
             Delete
           </Button>
         </td>

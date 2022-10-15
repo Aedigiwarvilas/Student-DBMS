@@ -1,19 +1,11 @@
 const mongoose = require("mongoose");
 
 const studentSchema = new mongoose.Schema({
-  RollNo: {
-    type: String,
-    required: true,
-  },
   FirstName: {
     type: String,
     required: true,
   },
   LastName: {
-    type: String,
-    required: true,
-  },
-  Branch: {
     type: String,
     required: true,
   },
