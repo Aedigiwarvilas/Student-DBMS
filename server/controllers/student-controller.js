@@ -23,7 +23,7 @@ const addStudent = (req, res) => {
   studentRecord
     .save()
     .then(() => {
-      console.log("Student Document Inserted Successfully");
+      res.status(200).json({ message: "Student Added Successfully" });
     })
     .catch((err) => {
       console.log(err);
@@ -44,7 +44,7 @@ const updateStudent = (req, res) => {
     }
   )
     .then(() => {
-      console.log("Student Document Updated Succesfully");
+      res.status(200).json({ message: "Student Updated Successfully" });
     })
     .catch((err) => {
       console.log(err);
@@ -56,7 +56,7 @@ const deleteStudent = (req, res) => {
   let Id = req.params.Id;
   Student.findByIdAndDelete({ _id: Id })
     .then(() => {
-      console.log("Student Document Deleted Successfully");
+      res.status(200).json();
     })
     .catch((err) => console.log(err));
 };

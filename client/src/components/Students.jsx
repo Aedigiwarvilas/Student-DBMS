@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
-import Table from "react-bootstrap/Table";
+import React, { useState, useLayoutEffect } from "react";
 import axios from "axios";
-import StudentTableRow from "./StudentTableRow";
+import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/esm/Button";
+import { Link } from "react-router-dom";
 
 export default function Students() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
 
-  const DataTable = () => {
-    return data.map((res, i) => {
-      return <StudentTableRow obj={res} key={i} />;
-    });
+  const handleDelete = (Id) => {
+    axios
+      .delete(`http://localhost:5000/delete/${Id}`)
+      .then()
+      .catch((err) => console.log(err));
+    setData(data.filter((row) => row._id !== Id));
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     axios
       .get("http://localhost:5000/")
       .then((res) => {
-        if (data !== res.data) {
-          setData(res.data);
-          console.log(data);
-        }
+        setData(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -36,7 +36,34 @@ export default function Students() {
           <th className="p-3">Actions</th>
         </tr>
       </thead>
-      <tbody>{DataTable()}</tbody>
+      <tbody>
+        {data &&
+          data.map((res) => {
+            return (
+              <tr className="text-center" key={res._id}>
+                <td>{res.FirstName}</td>
+                <td>{res.LastName}</td>
+                <td>{res.DOB}</td>
+                <td>{res.Email}</td>
+                <td>{res.Phone}</td>
+                <td>
+                  <Link to={"/edit/" + res._id} state={res}>
+                    <Button variant="dark" className="ms-3">
+                      Edit
+                    </Button>
+                  </Link>
+                  <Button
+                    variant="danger"
+                    onClick={() => handleDelete(res._id)}
+                    className="ms-4"
+                  >
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
+      </tbody>
     </Table>
   );
 }

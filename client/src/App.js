@@ -1,36 +1,19 @@
+import Home from "./components/Home";
+import AddStudent from "./components/AddStudent";
+import EditStudent from "./components/EditStudent";
 import Header from "./components/Header";
-import Students from "./components/Students";
-import StudentAddForm from "./components/StudentAddForm";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <Container fluid>
-        <Row>
-          <Header />
-        </Row>
-        <Row className="m-4 p-4 justify-content-md-center">
-          <Col sm={8}>
-            <h4>
-              Welcome to the Student Portal.One portal to view All Existing
-              Students , Adding New Students , Updating Existing Students and
-              Deleting Existing Students.
-            </h4>
-          </Col>
-          <Col sm={2}>
-            <StudentAddForm />
-          </Col>
-        </Row>
-        <Row className="justify-content-md-center">
-          <Col sm={10}>
-            <Students />
-          </Col>
-        </Row>
-      </Container>
-    </div>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/add" element={<AddStudent />} />
+        <Route path="/edit/:Id" element={<EditStudent />} />
+      </Routes>
+    </Router>
   );
 }
 
